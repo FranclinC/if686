@@ -1,0 +1,13 @@
+- help -
+
+L* = lista "n"
+EE = exercício escolar
+PP = prova prática
+FI = prova final
+CH = segunda chamada
+
++ 
+
+período do documento
+
+=> ex: primeira lista do período 2010.1 => L1_101.hs
