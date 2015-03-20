@@ -18,33 +18,23 @@ digits (x:xs)
 
 sumPairs :: [Int] -> [Int] -> [Int]
 sumPairs [] [] = []
-sumPairs (x:xs) [] = [x] ++ sumPairs xs []
-sumPairs [] (y:ys) = [y] ++ sumPairs [] ys
+sumPairs (x:xs) [] = [x] ++ (sumPairs xs [])
+sumPairs [] (y:ys) = [y] ++ (sumPairs [] ys)
 sumPairs (x:xs) (y:ys) = [x + y] ++ (sumPairs xs ys)
 
 quicksort :: [Int] -> [Int]
 quicksort [] = []
 quicksort (x:xs) = quicksort (filter (< x) xs) ++ [x] ++ quicksort (filter (>= x) xs)
 
+--generateFiboPairs :: Int -> [Int]
+
+--ordDigits :: [Int] -> [Int]
+
+type Ponto = (Float, Float)
+type Reta = (Ponto, Ponto)
+
+--pontoY :: Float -> Reta -> Float
+
 main :: IO()
 main = do
-	putStrLn "double function!"
-	putStrLn (show [1,2,3,4,5])
-	putStrLn (show (double [1,2,3,4,5]))
-	putStrLn "--"
-	putStrLn "member function!"
-	putStrLn (show [1,2,3,4,5])
-	putStrLn (show (member [1,2,3,4,5] 5))
-	putStrLn "--"
-	putStrLn "digits function!"
-	putStrLn (show "1a2b3c")
-	putStrLn (show (digits "1a2b3c"))
-	putStrLn "--"
-	putStrLn "sumPairs function!"
-	putStrLn "[1,2,3,4,5] [6,7,8,9,10]"
-	putStrLn (show (sumPairs [1,2,3,4,5] [6,7,8,9,10]))
-	putStrLn "--"
-	putStrLn "quicksort function!"
-	putStrLn (show [-1,1,100,43,12,0,424,53,99,98,97,-1000,12])
-	putStrLn (show (quicksort [-1,1,100,43,12,0,424,53,99,98,97,-1000,12]))
-	putStrLn "--"
+	putStrLn "Yo, bitch!"
