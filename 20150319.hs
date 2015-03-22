@@ -1,3 +1,22 @@
 module Main where
 
-main = putStrLn "Hello World"
+{- Exercícios do slide-}
+
+menorMaior :: Int -> Int -> Int -> (Int, Int)
+menorMaior a b c = (min (min a b) c, max (max a b) c)
+
+{- Abaixo segue o segundo trabalho de PLC -}
+
+heapsort :: [Int] -> [Int]
+heapsort l = sz 
+	where sz = (size l)
+
+size :: [Int] -> Int
+size [] = 0
+size (l:ls) = 1 + (size ls)
+
+main :: IO()
+main = do
+	putStrLn (show [12314, 77, 21, 1, 11, 111, 0, 89, 231])
+	putStrLn (show (heapsort [12314, 77, 21, 1, 11, 111, 0, 89, 231]))
+	

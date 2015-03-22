@@ -1,4 +1,6 @@
-module Main where
+Module Main where
+
+{- Exercícios do slide -}
 
 double :: [Int] -> [Int]
 double [] = []
