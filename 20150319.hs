@@ -5,15 +5,7 @@ module Main where
 menorMaior :: Int -> Int -> Int -> (Int, Int)
 menorMaior a b c = (min (min a b) c, max (max a b) c)
 
-{- Abaixo segue o segundo trabalho de PLC -}
-
-heapsort :: [Int] -> [Int]
-heapsort l = sz 
-	where sz = (size l)
-
-size :: [Int] -> Int
-size [] = 0
-size (l:ls) = 1 + (size ls)
+ordenaTripla :: (Int, Int, Int) -> (Int, Int, Int)
 
 main :: IO()
 main = do
