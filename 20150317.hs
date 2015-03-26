@@ -13,7 +13,7 @@ totalVendas n
 maxVendas :: Int -> Int
 maxVendas n
 	| (n == 0) = vendas 0
-	| otherwise = maxi (maxVendas (n - 1)) (vendas n)
+	| otherwise = max (maxVendas (n - 1)) (vendas n)
 
 double :: [Int] -> [Int]
 double [] = []
@@ -41,7 +41,12 @@ quicksort :: [Int] -> [Int]
 quicksort [] = []
 quicksort (x:xs) = quicksort (filter (< x) xs) ++ [x] ++ quicksort (filter (>= x) xs)
 
+fib :: Int -> [Int]
+fib 0 = [0]
+fib 1 = [1, 0]
+fib n = (head (fib (n - 1)) + head (fib (n - 2))) : fib (n - 1)
+
 main :: IO()
 main = do
 	putStrLn "Yo, bitch!"
-	putStrLn (show (totalVendas 5))
+	putStrLn (show (fib 10))
