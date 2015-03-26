@@ -24,8 +24,8 @@ mergesort [x] = [x]
 mergesort xs  = let (as, bs) = split xs
                 in merge (mergesort as) (mergesort bs)
 
-
 -- Heapsort, mra2
+
 
 --
 
