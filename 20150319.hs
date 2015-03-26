@@ -29,29 +29,77 @@ retaV ((x1,y1), (x2,y2))
 
 type Pessoa = String
 type Livro = String
-type BD = [(Pessoa,Livro)]
+type BD = [(Pessoa, Livro)]
 
-baseExemplo :: BD
-baseExemplo =
-	[("sergio","O senhor dos aneis"),
-	("Andre", "Duna"),
-	("Fernando", "Jonhatan e something"),
-	("Fernando", "Game of Thro")]
+database :: BD
+database = [("sergio","O senhor dos aneis"), ("Andre", "Duna"), ("Fernando", "Jonhatan e something")]
 
 livros :: BD -> Pessoa -> [Livro]
-livros bd s
-	| (s == fst bd) = [snd bd] ++ (livros bd s)
-	| otherwise = (livros bd s)
+livros (x:xs) p
+	| (fst x == p) = [snd x] ++ (livros xs p)
+	| otherwise = (livros xs p)
 
-{-emprestimos :: BD -> Livro -> [Pessoa]
+emprestimos :: BD -> Livro -> [Pessoa]
+emprestimos [] _ = []
+emprestimos (x:xs) l
+	| (snd x == l) = [fst x] ++ (emprestimos xs l)
+	| otherwise = (emprestimos xs l)
 
 emprestado :: BD -> Livro -> Bool
+emprestado [] _ = False
+emprestado (x:xs) l
+	| (snd x == l) = True
+	| otherwise = (emprestado xs l)
 
-qtd :: BD -> Pessoa -> Int
+qtdEmprestimos :: BD -> Pessoa -> Int
+qtdEmprestimos [] _ = 0
+qtdEmprestimos (x:xs) p
+	| (fst x == p) = 1 + (qtdEmprestimos xs p)
+	| otherwise = (qtdEmprestimos xs p)
 
 emprestar :: BD -> Pessoa -> Livro -> BD
+emprestar b p l = b ++ [p,l]
 
-devolver :: BD -> Pessoa -> Livro -> BD-}
+devolver :: BD -> Pessoa -> Livro -> BD
+devolver (x:xs) p l
+	| (p == (fst x) && l == (snd x)) = (devolver xs p l)
+	| otherwise = (x):(devolver xs p l)
+
+--funções usando compreensão de lista
+livros2 :: BD -> Pessoa -> [Livro]
+livros2 x y = [pessoa | (pessoa, livro) <- x, y == livro]
+
+emprestimos2 :: BD -> Livro -> [Pessoa]
+emprestimos2 x y = [pessoa | (pessoa, livro) <- x, y == livro]
+
+emprestado2 :: BD -> Livro -> Bool
+emprestado2 x y = [livro | (pessoa, livro) <- x, y == livro]
+
+qtdEmprestimos2 :: BD -> Pessoa -> Int
+qtdEmprestimos2 x y = (length [pessoa | (pessoa, livro) <- x, y == pessoa])
+
+emprestar :: BD -> Pessoa -> Livro -> BD
+emprestar b p l = b ++ [p,l]
+
+devolver2 :: BD -> Pessoa -> Livro -> BD
+devolver2 x y = [(pessoa, livro) | (pessoa, livro) <- x, y /= livro]
+
+--processamento de texto
+getWord :: String -> String
+getWord x 
+	| (x == []) = []
+	| otherwise = take (getSpace x) x
+
+dropWord :: String -> String
+dropWord x 
+	| (x == []) = []
+	| otherwise = drop (getSpace x) x
+
+dropSpace :: String -> String
+dropSpace x 
+	| (x == []) = []
+	| (x!!0 /= ' ') = x
+	| otherwise = dropSpace (tail x)
 
 main :: IO()
 main = do
