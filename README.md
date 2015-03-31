@@ -1,14 +1,11 @@
 if686
 =====
 
-Repositório para a disciplina de [Paradigmas de Linguagens Computacionais] do [CIn/UFPE] (2015.1), ministrada pelo [Fernando Castor].
-
-## Contact 
-__mra2__ [at] cin [dot] ufpe [dot] br
+Repo for the discipline of [Paradigms of Computer Languages] of [CIN / UFPE] (2015.1), taught by Professor [Fernando Castor].
 
 ## Licence
 
-__MIT__ == :heart:
+__MIT__ <==> :heart:
 
 ----
 
