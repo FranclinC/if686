@@ -1,19 +1,15 @@
 module Main where
 
-{- Exercícios do slide -}
+{- Exercícios do slide 01_INTRO_PROGRAMACAO_FUNCIONAL -}
 
 vendas :: Int -> Int
-vendas x = 1
+vendas n = 1
 
-totalVendas :: Int -> Int
-totalVendas n
-	| (n == 0) = vendas 0
-	| otherwise = totalVendas (n - 1) + vendas n
-
-maxVendas :: Int -> Int
-maxVendas n
-	| (n == 0) = vendas 0
-	| otherwise = max (maxVendas (n - 1)) (vendas n)
+qtdSemanas :: Int -> Int -> Int
+qtdSemanas _ 0 = 0
+qtdSemanas s n
+	| s == vendas 3 = 1 + qtdSemanas s (n - 1)
+	| otherwise = qtdSemanas s (n - 1)
 
 double :: [Int] -> [Int]
 double [] = []
@@ -46,7 +42,15 @@ fib 0 = [0]
 fib 1 = [1, 0]
 fib n = (head (fib (n - 1)) + head (fib (n - 2))) : fib (n - 1)
 
+ordNum :: [Int] -> [Int]
+ordNum [] = []
+ordNum (h:t) = ordNum [y | y <- t, su y < su h] ++ [h] ++ ordNum [y | y <- t, su y >= su h]
+
+su :: Int -> Int
+su 0 = 0
+su n = mod n 10 + su (div n 10)
+
 main :: IO()
 main = do
 	putStrLn "Yo, bitch!"
-	putStrLn (show (fib 10))
+	putStrLn $ show $ ordNum [5, 12, 70, 8, 25, 3, 150]
