@@ -84,6 +84,9 @@ combinar f (h:t) [] = [fromIntegral h] ++ (combinar f t [])
 combinar f (h1:t1) (h2:t2) = (f (h1, h2)) : (combinar f t1 t2)
 
 -- 12.
+foldi :: (a -> a -> a) -> a -> [a] -> a
+foldi f x [] = x
+foldi f x (h:t) = (f h) :  
 
 
 
@@ -101,4 +104,4 @@ main = do
 	putStrLn (show (crivo 50))
 	putStrLn (show (split (>5) [1, 2, 3, 4, 5, 6, 7, 8, 9]))
 	putStrLn $ show $ combinar (\(x, y) -> 2 * x + 3 * y) [1, 2, 3] [1, 2, 3, 4]
-
+	putStrLn $ show $ foldi (-) 0 [1, 2, 3, 4, 5, 6, 7]
