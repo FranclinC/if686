@@ -1,20 +1,23 @@
 module Main where
 
-{- Exercícios do slide-}
+{- Exercícios do slide 02_TUPLAS_CASAMENTO_PADROES -}
+
+type Ponto = (Float, Float)
+type Reta = (Ponto, Ponto)
+type Pessoa = String
+type Livro = String
+type BD = [(Pessoa, Livro)]
+type Word = String
+type Line = [Word]
 
 menorMaior :: Int -> Int -> Int -> (Int, Int)
 menorMaior a b c = (min (min a b) c, max (max a b) c)
-
--- atualização: exercícios realizado no dia 24/03
 
 ordenaTripla :: (Int, Int, Int) -> (Int, Int, Int)
 ordenaTripla (a, b, c) = (menor, (a + b + c) - maior - menor, maior)
 	where 
 		menor = (min (min a b) c)
 		maior = (max (max a b) c)
-
-type Ponto = (Float, Float)
-type Reta = (Ponto, Ponto)
 
 fstCo :: Ponto -> Float
 fstCo  (x, _) = x
@@ -26,10 +29,6 @@ retaV :: Reta -> Bool
 retaV ((x1,y1), (x2,y2))
 	| (x1 == x2) = True
 	| otherwise = False
-
-type Pessoa = String
-type Livro = String
-type BD = [(Pessoa, Livro)]
 
 database :: BD
 database = [("sergio","O senhor dos aneis"), ("Andre", "Duna"), ("Fernando", "Jonhatan e something")]
@@ -65,7 +64,6 @@ devolver (x:xs) p l
 	| (p == (fst x) && l == (snd x)) = (devolver xs p l)
 	| otherwise = (x):(devolver xs p l)
 
---funções usando compreensão de lista
 livros2 :: BD -> Pessoa -> [Livro]
 livros2 x y = [pessoa | (pessoa, livro) <- x, y == livro]
 
@@ -78,30 +76,43 @@ emprestado2 x y = [livro | (pessoa, livro) <- x, y == livro]
 qtdEmprestimos2 :: BD -> Pessoa -> Int
 qtdEmprestimos2 x y = (length [pessoa | (pessoa, livro) <- x, y == pessoa])
 
-emprestar :: BD -> Pessoa -> Livro -> BD
-emprestar b p l = b ++ [p,l]
+emprestar2 :: BD -> Pessoa -> Livro -> BD
+emprestar2 b p l = b ++ [p,l]
 
 devolver2 :: BD -> Pessoa -> Livro -> BD
 devolver2 x y = [(pessoa, livro) | (pessoa, livro) <- x, y /= livro]
 
---processamento de texto
+quicksort :: [Int] -> [Int]
+quicksort [] = []
+quicksort (h:t) = quicksort (filter (< h) t) ++ [h] ++ quicksort (filter (>= h) t)
+
+getSpace :: String -> Int
+getSpace [] = 0
+getSpace (h:t)
+	| h == ' ' = 0
+	| otherwise = 1 + getSpace t
+
 getWord :: String -> String
-getWord x 
-	| (x == []) = []
-	| otherwise = take (getSpace x) x
+getWord [] = []
+getWord s = take (getSpace s) s
 
 dropWord :: String -> String
-dropWord x 
-	| (x == []) = []
-	| otherwise = drop (getSpace x) x
+dropWord [] = []
+dropWord s = drop (getSpace s) s
 
 dropSpace :: String -> String
-dropSpace x 
-	| (x == []) = []
-	| (x!!0 /= ' ') = x
-	| otherwise = dropSpace (tail x)
+dropSpace [] = []
+dropSpace (h:t) 
+	| x !! 0 /= ' ' = x
+	| otherwise = dropSpace t
+
+splitWords :: String -> [Word]
+splitWords [] = []
+splitWords s
+	| (getSpace s == 0 && s!!0 /= ' ') = (getWord s):[]
+	| otherwise = (getWord s) : (splitWords $ dropSpace $ dropWord s)
 
 main :: IO()
 main = do
-	putStrLn "The main entry point."
-	putStrLn (show (retaV ((2,1),(3,5))))
+	putStrLn "Say my name!"
+	putStrLn $ show $ quicksort [4, 2, 77, 1, 0, 123]
