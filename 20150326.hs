@@ -48,7 +48,7 @@ comparaConjuntos a b
 	| (intersection a b) = "A intersecta B"
 	| otherwise = "Conjuntos Disjuntos"
 
-contains :: [t] -> [t] -> Bool
+contains :: (Eq) => [t] -> [t] -> Bool
 contains _ [] = True
 contains a (b:bs) = ((check b a) && (contains a bs))
 
@@ -64,4 +64,5 @@ check v (x:xs)
 
 main :: IO()
 main = do
-	putStrLn "start!"
+	putStrLn "I'm not in danger. I am the danger!"
+	putStrLn $ comparaConjuntos [1, 2, 3, 4] [1, 2, 5, 6]
