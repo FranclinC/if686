@@ -4,9 +4,12 @@ import Data.Char
 
 {- Quarto Trabalho de PLC -}
 
-{-
-1. Poliformismo em Haskell 
--}
+{- 1. Quando tratamos de polimorfismo em haskell, podemos garantir que ele é mais seguro quanto 
+a garantia de que os tipos terão implementações das funcionalidades que serão utilizadas sob eles, 
+pois é possível restringir que os argumentos genéricos possuam implementações de determinadas funções,
+sendo esses definidos por uma classe. Em Java, o Generics que é utilizado no polimorfismo acaba 
+sendo mais geral pois não restringe os dados, porém é mais sucetível à erro tendo em vista que apenas
+ocorre uma verificação de tipo em tempo de execução.-}
 
 -- 2.
 lookAndSay :: Int -> Int
@@ -28,45 +31,57 @@ display (xs, n, y) = xs ++ (show n) ++ (y:"")
 
 {- Exercícios em sala 31/03 -> bit.ly/1G3ePIQ -}
 
--- 1.
---afd :: [Char] -> [Int] -> [(Int, Int, String)] -> Int -> [Int] -> Bool
---afd [] (list:t1) ((curr, next, tran):t2) ini acc = (elem ini acc)
---afd (state:t1) (list:t2) ((curr, next, tran):t3) ini (acc:t4) 
+next :: Char -> Int -> [(Int,Int,Char)] -> Int
+next _ _ [] = 0
+next x b ((f, t, c):xs) 
+	| x == c && f == b = t
+	| otherwise = (next x b xs)
 
-afd :: String -> [Int] -> [(Int, Int, Char)] -> Int -> [Int] -> Bool
-afd [] _ _ _ _ = False
-afd input states trans initial acc = simulate states trans acc [(input,initial)] 
+contain :: [Int] -> Int-> Bool
+contain [] _ = False
+contain (h:t) v 
+	| h == v = True
+	| otherwise = (contain t v)
 
-simulate :: [Int] -> [(Int, Int, Char)] -> [Int] -> [(String,Int)] -> Bool
-simulate _ _ _ [] = False
-simulate states trans acc ((input, actual):as)
-	| ((input, actual):as) == [] = False
-	| [actual] == [x | x <- acc, x == actual] = True
-	| otherwise = simulate states trans acc ([(tail input, y) | (x,y,z) <- trans, x == actual && z == head input] ++ as) 
+afd :: String -> [Int] -> [(Int,Int,Char)] -> Int -> [Int] -> Bool
+afd [] st tr b e = contain e b
+afd (x:xs) st tr b e
+	| ntst < 0 = False
+	| otherwise = (afd xs st tr ntst e)
+		where 
+			ntst = next x b tr
 
+toHex :: Int -> String
+toHex t 
+	| t < 16 = [intToDigit t]
+	| otherwise = (toHex (div t 16)) ++ [(intToDigit (mod t 16))]
 
--- 2.
-somatorioHexadecimal :: [String] -> Int
-somatorioHexadecimal [] = 0
-somatorioHexadecimal (h:t) = (cnv h + (somatorioHexadecimal t))
+toDec :: String -> Int -> Int
+toDec [] sz = 0
+toDec (h:t) sz = (pow 16 (sz-1)) * (digitToInt h) + (toDec t (sz-1))
+				
+pow :: Int -> Int -> Int
+pow a b 
+	| b == 0 = 1
+	| otherwise = a * (pow a (b-1)) 
 
-cnv :: String -> Int
-cnv [] = 0
-cnv (h:t) = (digitToInt h) + (cnv t)
+aux :: [String] -> Int
+aux [] = 0
+aux (h:t) = toDec h $ length h + aux t
 
--- 3.
+somatorioHexadecimal :: [String] -> String
+somatorioHexadecimal l = toHex $ aux l
 
--- 4.
-type Vector = [Double]
-type Matrix = [Vector]
+isP :: String ->String
+isP l 	
+	| ((mod len 2) == 0 && (reverse (take (div len 2) l)) == (drop (div len 2) l) ) = "PALINDROME" 
+	| ((mod len 2) == 1 && (reverse (take (div len 2) l)) == (drop (div (len+1) 2) l )) = "PALINDROME"
+	| otherwise = "NAO PALINDROME"
+		where len = length l
 
---multiplicaMatrizes :: [[Int]] -> [[Int]] -> [[Int]]
---multiplicaMatrizes ((x:xs):t1) ((y:ys):t2) = 
-	
-main :: IO()
+palindromoDecimal :: String -> String
+palindromoDecimal s = (show dec) ++ " - " ++ (isP (show dec))
+					where dec = toDec s (length	s)
+
 main = do
-	putStrLn "The main entry point!"
-	putStrLn $ afd "111" [1, 2, 3] [(1, 1, "1"), (1, 3, "0"), (3, 2, "1")] 1 [2]
-	--putStrLn $ show (somatorioHexadecimal ["A", "B", "C", "D", "E", "F"])
-	--putStrLn $ multiplicaMatrizes [[1, 2], [3, 4]] [[4, 3], [2, 1]]
-
+	putStrLn "I am the bad guy!"
