@@ -84,15 +84,10 @@ combinar f (h:t) [] = [fromIntegral h] ++ (combinar f t [])
 combinar f (h1:t1) (h2:t2) = (f (h1, h2)) : (combinar f t1 t2)
 
 -- 12.
-foldi :: (a -> a -> a) -> a -> [a] -> a
-foldi f x [] = x
-foldi f x (h:t) = (f h) :  
-
-
 
 main :: IO()
 main = do
-	putStrLn "The main entry point!"
+	putStrLn "What's wrong with you?"
 	putStrLn (show (itemN 2 ["primeiro", "segundo", "terceiro"]))
 	putStrLn (show (elemento 2 [1, 2, 3]))
 	putStrLn (show (ocorrenciasN 0 [0, 1, 0, 2, 0, 3]))
