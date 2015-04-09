@@ -1,51 +1,48 @@
 module Main where
 
-{- Quinto trabalho de PLC enviado -}
+{- Quinto trabalho de PLC -}
 
-import Data.Char
+-- Questionário enviado!
 
-{- Exercícios do slide para o dia 07/04 -}
+{- Exercícios do slide 04_TIPOS_ALGEBRICOS (07/04) -}
 
-capitalize :: Char -> Char
-capitalize ch = chr (ord ch + offset)
-	where 
-		offset = ord 'A' - ord 'a'
+type Horas = Int
+type Disciplinas = [String]
 
-zipi :: [t] -> [u] -> [(t, u)]
-zipi (a:as) (b:bs) = (a,b) : zipi as bs
-zipi _ _ = []
+data Dias = Segunda Horas Disciplinas
+	| Terca Horas Disciplinas
+	| Quarta Horas Disciplinas
+	| Quinta Horas Disciplinas
+	| Sexta Horas Disciplinas
+	| Sabado
+	| Domingo
 
-len :: [Int] -> Int
-len [] = 0
-len (h:t) = 1 + len t
+isFimDeSemana :: Dias -> Bool
+isFimDeSemana Sabado = True
+isFimDeSemana Domingo = True
+isFimDeSemana _ = False
 
-rev :: [Int] -> [Int]
-rev [] = []
-rev (h:t) = rev t ++ [h]
+hasPLC :: Dias -> Bool
+hasPLC (Segunda h d) = elem "PLC" d
+hasPLC (Terca h d) = elem "PLC" d
+hasPLC (Quarta h d) = elem "PLC" d
+hasPLC (Quinta h d) = elem "PLC" d
+hasPLC (Sexta h d) = elem "PLC" d
+hasPLC Sabado = False
+hasPLC Domingo = False
 
---rep :: Int -> [Char] -> [Char]
-rep 0 ch = []
-rep n ch = ch : rep (n - 1) ch
+data List t = Nil | Cons t (List t)
+data Tree t = NilT | Node t (Tree t) (Tree t) deriving (Eq, Ord)
 
-take2 :: [t] -> Int -> [t]
-take2 [] _ = []
-take2 (h:t) n
-	| (n == 0) = []
-	| otherwise = [h] ++ take2 t (n - 1)
+--showExpr :: Expr -> String
+--fromList :: [t] -> List t
+--depth :: Tree t -> Int
+--collapse :: Tree t -> [t]
+--bfs :: Tree t -> t -> Bool
+--mapTree :: (t -> u) -> Tree t -> Tree u
 
-drop2 :: Int -> [t] -> [t]
-drop2 _ [] = []
-drop2 n (h:t)
-
-
+main :: IO()
 main = do
-	putStrLn "the main entry point!"
-	putStrLn $ show $ capitalize 'c'
-	putStrLn $ show $ zipi [1, 2, 3] [4, 5, 6]
-	putStrLn $ show $ len [1, 2, 3, 4]
-	putStrLn $ show $ rev [1, 2, 3, 4]
-	putStrLn $ show $ rep 5 "LOL"
-	putStrLn $ show $ take2 [1, 2, 3, 4, 5, 6, 7, 8] 4
-	putStrLn $ show $ drop2 [1, 2, 3, 4, 5, 6, 7, 8] 4
-
-
+	putStrLn "99.1%!"
+	putStrLn $ show $ isFimDeSemana (Terca 10 [""])
+	putStrLn $ show $ hasPLC (Quinta 3 ["PLC", "AVLC", "PG", "HFC"])
