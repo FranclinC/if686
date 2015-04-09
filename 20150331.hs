@@ -29,7 +29,7 @@ display (xs, n, y) = xs ++ (show n) ++ (y:"")
 
 -- 4.
 
-{- Exercícios em sala 31/03 -> bit.ly/1G3ePIQ -}
+{- Exercícios da monitoria em sala 31/03 -> bit.ly/1G3ePIQ -}
 
 next :: Char -> Int -> [(Int,Int,Char)] -> Int
 next _ _ [] = 0
@@ -72,7 +72,7 @@ aux (h:t) = toDec h $ length h + aux t
 somatorioHexadecimal :: [String] -> String
 somatorioHexadecimal l = toHex $ aux l
 
-isP :: String ->String
+isP :: String -> String
 isP l 	
 	| ((mod len 2) == 0 && (reverse (take (div len 2) l)) == (drop (div len 2) l) ) = "PALINDROME" 
 	| ((mod len 2) == 1 && (reverse (take (div len 2) l)) == (drop (div (len+1) 2) l )) = "PALINDROME"
@@ -83,5 +83,38 @@ palindromoDecimal :: String -> String
 palindromoDecimal s = (show dec) ++ " - " ++ (isP (show dec))
 					where dec = toDec s (length	s)
 
+{- Exercícios do slide 03_POLIMORFISMO -}
+
+take2 :: [t] -> Int -> [t]
+take2 [] _ = []
+take2 (h:t) n
+	| (n == 0) = []
+	| otherwise = [h] ++ take2 t (n - 1)
+
+drop2 :: [t] -> Int -> [t]
+drop2 [] _ = []
+drop2 (h:t) n
+	| n == 0 = [h] ++ (drop2 t n)
+	| otherwise = drop2 t (n - 1)
+
+takeWhile2 :: (t -> Bool) -> [t] -> [t]
+takeWhile2 f t = [x | x <- t, f x]
+
+dropWhile2 :: (t -> Bool) -> [t] -> [t]
+dropWhile2 f t = [x | x <- t, not (f x)]
+
+qsort :: (Ord t) => [t] -> [t]
+qsort [] = []
+qsort (h:t) = qsort ([x | x <- t, x < h]) ++ [h] ++ qsort ([x | x <- t, x >= h])
+
+agrupar :: (Ord t) => [t] -> [(t, Int)]
+
+main :: IO()
 main = do
 	putStrLn "I am the bad guy!"
+	putStrLn $ show $ take2 [1, 2, 3, 4, 5] 3
+	putStrLn $ show $ drop2 [1, 2, 3, 4, 5] 3
+	putStrLn $ show $ takeWhile2 (> 10) [14, 13, 11, 9, 23]
+	putStrLn $ show $ dropWhile2 (> 10) [14, 13, 11, 9, 23]
+	putStrLn $ show $ qsort [14, 13, 11, 9, 23]
+	putStrLn $ show $ agrupar ["Fernando", "Castor"]
