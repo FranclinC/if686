@@ -1,0 +1,47 @@
+{- TRABALHO 09 -}
+
+-- 1.
+
+=> AULA 01
+
+Todos exercícios já estavam feitos! :)
+
+=> AULA 02
+
+diff --git a/20150319.hs b/20150319.hs
+index 3a51629..7248c49 100644
+--- a/20150319.hs
++++ b/20150319.hs
+@@ -112,6 +112,28 @@ splitWords s
+ 	| (getSpace s == 0 && s!!0 /= ' ') = (getWord s):[]
+ 	| otherwise = (getWord s) : (splitWords $ dropSpace $ dropWord s)
+ 
++getLine :: Int -> [Word] -> Line
++getLine _ [] = []
++getLine x (h:t)
++    | (length h > x) = getLine x t
++    | otherwise = h : getLine (x - (length h) t)
++
++dropLine :: Int -> [Word] -> [Word]
++dropLine _ [] = []
++dropLine (h:t)
++    | (length t > x) = dropLine x (h)
++   	| otherwise = (dropLine (x - (length t) h) ++ [t]
++
++splitLines :: [Word] -> [Line]
++splitLines [] = []
++splitWords (h:t) = (getLine lineLength h) : (splitLines (drop 10 t))
++
++fill :: String -> [Line]
++fill s = splitLines (splitWords s)
++
++joinLines :: [Line] -> String
++joinLines s = reverse $ fill s
++
+ main :: IO()
+ main = do
+ 	putStrLn "Say my name!"
+
+
+=> AULA 03
+
