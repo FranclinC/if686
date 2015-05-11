@@ -1,14 +1,12 @@
-module Main where
+-- TRABALHO 03
 
-{- Terceiro Trabalho de PLC -}
-
--- HashTable
+-- 1.
 type Key = Int
 type Value = Int
 type HashTable = [(Key, Value)]
 
 database :: HashTable
-database = [(21,4),(212,43),(34,336),(14,3422),(2,5),(8,3),(7,1),(12,8),(16,3),(10,2),(2,4),(1,4),(3,6),(4,2),(2,5),(8,3),(7,1),(12,8),(16,3),(10,2)]
+database = [(21,4),(212,43),(34,336),(14,3422),(2,5),(8,3),(7,1),(12,8),(16,3),(10,2),(2,4),(1,4),(3,6),(4,2),(2,5),(8,3),(7,1),(12,8)]
 
 get :: HashTable -> Int -> Int
 get [] key = -1
@@ -39,7 +37,7 @@ collision h key s
  	where 
  		p = (key + s) `mod` (length database)
 
--- Comparação de Conjuntos
+-- 2.
 comparaConjuntos :: (Eq t) => [t] -> [t] -> String
 comparaConjuntos a b
 	| ((contains a b) && (contains b a)) = "A igual B"
@@ -61,8 +59,3 @@ check v [] = False
 check v (x:xs)
 	| (v == x) = True
 	| otherwise = (check v xs)
-
-main :: IO()
-main = do
-	putStrLn "I'm not in danger. I am the danger!"
-	putStrLn $ comparaConjuntos [1, 2, 3, 4] [1, 2, 5, 6]
