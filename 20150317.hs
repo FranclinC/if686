@@ -1,9 +1,4 @@
-module Main where
-
-{- Exercícios do slide 01_INTRO_PROGRAMACAO_FUNCIONAL -}
-
-vendas :: Int -> Int
-vendas n = 1
+-- AULA 01
 
 qtdSemanas :: Int -> Int -> Int
 qtdSemanas _ 0 = 0
@@ -49,8 +44,3 @@ ordNum (h:t) = ordNum [y | y <- t, su y < su h] ++ [h] ++ ordNum [y | y <- t, su
 su :: Int -> Int
 su 0 = 0
 su n = mod n 10 + su (div n 10)
-
-main :: IO()
-main = do
-	putStrLn "Yo, bitch!"
-	putStrLn $ show $ ordNum [5, 12, 70, 8, 25, 3, 150]
