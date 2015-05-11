@@ -1,23 +1,16 @@
-module Main where
-
-{- Exercícios do slide 02_TUPLAS_CASAMENTO_PADROES -}
-
-type Ponto = (Float, Float)
-type Reta = (Ponto, Ponto)
-type Pessoa = String
-type Livro = String
-type BD = [(Pessoa, Livro)]
-type Word = String
-type Line = [Word]
+-- AULA 02
 
 menorMaior :: Int -> Int -> Int -> (Int, Int)
 menorMaior a b c = (min (min a b) c, max (max a b) c)
 
 ordenaTripla :: (Int, Int, Int) -> (Int, Int, Int)
 ordenaTripla (a, b, c) = (menor, (a + b + c) - maior - menor, maior)
-	where 
-		menor = (min (min a b) c)
-		maior = (max (max a b) c)
+    where
+        menor = (min (min a b) c)
+        maior = (max (max a b) c)
+
+type Ponto = (Float, Float)
+type Reta = (Ponto, Ponto)
 
 fstCo :: Ponto -> Float
 fstCo  (x, _) = x
@@ -29,6 +22,10 @@ retaV :: Reta -> Bool
 retaV ((x1,y1), (x2,y2))
 	| (x1 == x2) = True
 	| otherwise = False
+
+type Pessoa = String
+type Livro = String
+type BD = [(Pessoa, Livro)]
 
 database :: BD
 database = [("sergio","O senhor dos aneis"), ("Andre", "Duna"), ("Fernando", "Jonhatan e something")]
@@ -86,6 +83,9 @@ quicksort :: [Int] -> [Int]
 quicksort [] = []
 quicksort (h:t) = quicksort (filter (< h) t) ++ [h] ++ quicksort (filter (>= h) t)
 
+type Word = String
+type Line = [Word]
+
 getSpace :: String -> Int
 getSpace [] = 0
 getSpace (h:t)
@@ -111,8 +111,3 @@ splitWords [] = []
 splitWords s
 	| (getSpace s == 0 && s!!0 /= ' ') = (getWord s):[]
 	| otherwise = (getWord s) : (splitWords $ dropSpace $ dropWord s)
-
-main :: IO()
-main = do
-	putStrLn "Say my name!"
-	putStrLn $ show $ quicksort [4, 2, 77, 1, 0, 123]
