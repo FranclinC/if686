@@ -1,10 +1,8 @@
-module Main where
+-- TRABALHO 05
 
-{- Quinto trabalho de PLC -}
+{- Questionário enviado! -}
 
--- Questionário enviado!
-
-{- Exercícios do slide 04_TIPOS_ALGEBRICOS (07/04) -}
+-- AULA 04
 
 type Horas = Int
 type Disciplinas = [String]
@@ -40,9 +38,3 @@ data Tree t = NilT | Node t (Tree t) (Tree t) deriving (Eq, Ord)
 --collapse :: Tree t -> [t]
 --bfs :: Tree t -> t -> Bool
 --mapTree :: (t -> u) -> Tree t -> Tree u
-
-main :: IO()
-main = do
-	putStrLn "99.1%!"
-	putStrLn $ show $ isFimDeSemana (Terca 10 [""])
-	putStrLn $ show $ hasPLC (Quinta 3 ["PLC", "AVLC", "PG", "HFC"])
