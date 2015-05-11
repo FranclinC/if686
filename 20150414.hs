@@ -1,6 +1,4 @@
-module Main where
-
-{- Sétimo trabalho de PLC -}
+-- TRABALHO 07
 
 type Vertex t = t
 type Edge t = (Vertex t, Vertex t, Int)
@@ -19,7 +17,3 @@ foldGraph :: (Eq t) => (t -> t -> t) -> Graph t -> t
 foldGraph f (Graph v adj) = foldr1 f v 
 
 -- 3.
-
-main :: IO()
-main = do
-	putStrLn "Hello World"
