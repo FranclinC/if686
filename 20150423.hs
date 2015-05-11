@@ -1,13 +1,8 @@
-module Main where
+-- AULA 07
 
-{- Nono Trabalho de PLC -}
+-- TRABALHO 09
 
 -- 1.
--- Resultado está salvo no arquivo 20150423.txt, como solicitado.
+{- Resultado está salvo no arquivo 20150423.txt, como solicitado. -}
 
 -- 2.
-
-
-main :: IO()
-main = do
-	putStrLn "Hello World"
