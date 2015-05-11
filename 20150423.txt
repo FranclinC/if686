@@ -1,4 +1,4 @@
-{- TRABALHO 09 -}
+-- TRABALHO 09
 
 -- 1.
 
