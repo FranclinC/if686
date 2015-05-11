@@ -2,27 +2,16 @@
 
 Repo for the discipline of [Paradigms of Computer Languages] of [CIn/UFPE] (2015.1), taught by Professor [Fernando Castor].
 
-## Dependencies
-
-You need __ghc__ to run an haskell program. So, open the terminal and install:
-
-run:
-```
-brew install ghc
-```
-
-If you dont have __brew__, get [here](http://brew.sh).
-
-## Contact
+#### Contact
 
 Email **mra2** [at] cin [dot] ufpe [dot] br
 
-## References
+#### References
 
 * Learn You a Haskell for Great Good! http://learnyouahaskell.com/chapters
 * reSRC http://resrc.io/tag/tag/haskell/
 
-## License
+#### License
 
 MIT License
 
