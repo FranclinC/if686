@@ -1,4 +1,6 @@
--- Mergesort, by rav2
+-- TRABALHO 02
+
+-- Mergesort, by rodrigo alves vieira
 
 -- recebe duas listas ordenadas e retorna uma lista nova
 -- que é o agrupamento das duas, ordenadas
@@ -25,7 +27,6 @@ mergesort [x] = [x]
 mergesort xs = let (as, bs) = split xs in merge (mergesort as) (mergesort bs)
 
 -- heapsort
-
 add:: Int -> [Int] -> [Int]
 add n hp
 	| hp==[] = [n]
@@ -65,11 +66,3 @@ buildHeap (h:t) hp = buildHeap t (add h hp)
 
 heapsort:: [Int] -> [Int]
 heapsort x = sort (buildHeap x [])
-
-main :: IO()
-main = do
-	putStrLn "Jesse, run!"
-	putStrLn $ show [16,4,10,14,7,9,3,2,8]
-	putStrLn $ show $ mergesort [16,4,10,14,7,9,3,2,8]
-	putStrLn $ show [16,4,10,14,7,9,3,2,8]
-	putStrLn $ show $heapsort [16,4,10,14,7,9,3,2,8]
