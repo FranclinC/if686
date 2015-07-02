@@ -112,3 +112,147 @@ public class Main implements Runnable {
 		}
 	}
 }
+
+/*
+    Construa um programa onde N threads incrementam
+    contadores locais (não-compartilhados) em um laço. Cada
+    thread imprime o valor do seu contador a cada incremento.
+    As threads param quando seus contadores chegam a um
+    valor limite X, recebido como entrada pelo programa.
+    - por que as saídas das threads se misturam?
+*/
+
+/*
+    Porque cada thread possui um "time slice" no processador.
+    Logo, quando uma thread tem muito serviço e o tempo de processamento
+    é curto, a thread é pausada e dá a vez pra outra thread.
+    A saída fica não-determinística.
+*/
+
+public class Main implements Runnable {
+    
+    public void run() {
+        int c = 0;
+        
+        while(c <= 10000) {
+            
+            c++;
+            
+            try {
+                Thread.sleep(1);
+            } catch(InterruptedException e) {}
+        }
+    }
+    
+    public static void main(String[] args) {
+        int N = Integer.parseInt(args[0]);
+        Thread[] t = new Thread[N];
+        
+        for(int i = 0; i < N; i++) {
+            t[i] = (new Thread(new Main()));
+            t[i].start();
+        }
+        
+        for(int i = 0; i < N; i++) {
+            try {
+                t[i].join();
+            } catch(InterruptedException e) {}
+        }
+    }
+}
+
+/*
+    Agora mude seu programa para que as threads modifiquem
+    um contador global compartilhado entre elas.
+    - o que acontece com os resultados?
+*/
+
+/*
+    o resultado do contador é sequencial, mas as threads
+    dividiram todo o trabalho. O funcionamento é dinâmico (UOU!).
+    As threads compatilham uma varíavel (counter).
+*/
+
+public class Main implements Runnable {
+    
+    public static int Counter = 0;
+    public static final int MAX = Integer.MAX_VALUE;
+    
+    public static synchronized int getAndInc() {
+        return Counter++;
+    }
+    
+    public void run() {
+        int c = getAndInc();
+        while(c <= MAX) {
+            c = getAndInc();
+        }
+    }
+
+    public static void main(String[] args) {
+        int nThreads = Integer.parseInt(args[0]);
+        Thread[] t = new Thread[nThreads];
+
+        for(int i = 0; i < nThreads; ++i) {
+            t[i] = (new Thread(new Main()));
+            t[i].start();
+        }
+
+        for(int i = 0; i < nThreads; ++i) {
+            try {
+                t[i].join();
+            } catch (InterruptedException e) {}
+        }
+    }
+}
+
+/*
+    Modifique o último programa que você construiu
+    para que, a cada iteração, a thread espere 1ms. A
+    thread que terminar a contagem primeiro (realizar
+    todas as iterações) deve interromper todas as outras
+    que estão executando.
+*/
+
+public class Main implements Runnable{
+    
+    public boolean b = false;
+    
+    public void run() {
+        int c = 0;
+        
+        while(c < 10001) {
+        
+            if(c == 10000) {
+                b = true;
+            }
+            
+            if(b) {
+                Thread.currentThread().interrupt();
+            }
+            
+            System.out.println(c);
+            c++;
+            
+            try {
+                Thread.sleep(1);
+            } catch(InterruptedException e) {}
+        }
+    }
+    
+    public static void main(String[] args) {
+        int N = Integer.parseInt(args[0]);
+        Thread[] t = new Thread[N];
+        
+        for(int i = 0; i < N; i++) {
+            t[i] = (new Thread(new Main()));
+            t[i].start();
+        }
+        
+        for(int i = 0; i < N; i++) {
+            try {
+                t[i].join();
+            } catch(InterruptedException e) {}
+        }
+    }
+}
