@@ -1,5 +1,3 @@
--- AULA 06
-
 -- TRABALHO 08
 
 aux :: (Ord t, Num t) => [t] -> [t] -> [[t]]
