@@ -16,7 +16,7 @@ public class Main implements Runnable {
 	public void run() {
 		int c = getAndInc();
 		
-		while(c <= 100000) {
+		while(c <= MAX) {
 			c = getAndInc();
 		}
 	}
