@@ -214,28 +214,29 @@ public class Main implements Runnable {
     que estão executando.
 */
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class Main implements Runnable{
-    
-    public boolean b = false;
+
+    static AtomicBoolean ab = new AtomicBoolean(false);
     
     public void run() {
+        
         int c = 0;
         
-        while(c < 10001) {
+        while(!ab.get()) {
         
-            if(c == 10000) {
-                b = true;
-            }
-            
-            if(b) {
-                Thread.currentThread().interrupt();
-            }
-            
             System.out.println(c);
-            c++;
+
+            if(c == 100000) {
+                ab.set(true);
+                break;
+            } else {
+                c++;
+            }
             
             try {
-                Thread.sleep(1);
+                Thread.sleep(3);
             } catch(InterruptedException e) {}
         }
     }
